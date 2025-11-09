@@ -83,9 +83,9 @@ controller:
     password:
 
     # -- The key in the existing admin secret containing the username
-    userKey: jenkins-admin-user
+    userKey: username
     # -- The key in the existing admin secret containing the password
-    passwordKey: jenkins-admin-password
+    passwordKey: password
 
     # The default configuration uses this secret to configure an admin user
     # If you don't need that user or use a different security realm, then you can disable it
@@ -93,9 +93,9 @@ controller:
     createSecret: true
 
     # -- The name of an existing secret containing the admin credentials
-    existingSecret: ""
+    existingSecret: "jenkins-admin-secret"
   # -- Email address for the administrator of the Jenkins instance
-  jenkinsAdminEmail:
+  jenkinsAdminEmail: "admin@caps.freeddns.org"
 
   # This value should not be changed unless you use your custom image of jenkins or any derived from.
   # If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
@@ -698,7 +698,7 @@ controller:
 
   ingress:
     # -- Enables ingress
-    enabled: false
+    enabled: true
 
     # Override for the default paths that map requests to the backend
     # -- Override for the default Ingress paths
@@ -725,7 +725,7 @@ controller:
       # kubernetes.io/tls-acme: "true"
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: nginx
 
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # -- Ingress path
@@ -733,14 +733,14 @@ controller:
 
     # configures the hostname e.g. jenkins.example.com
     # -- Ingress hostname
-    hostName:
+    hostName: jenkins.caps.freeddns.org
     # -- Hostname to serve assets from
     resourceRootUrl:
     # -- Ingress TLS configuration
-    tls: []
-    # - secretName: jenkins.cluster.local
-    #   hosts:
-    #     - jenkins.cluster.local
+    tls: 
+    - secretName: jenkins-tls-secret
+      hosts:
+        - jenkins.caps.freeddns.org
 
   # often you want to have your controller all locked down and private,
   # but you still want to get webhooks from your SCM
@@ -1163,21 +1163,21 @@ agent:
 
   # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
   # -- Add additional containers to the agents
-  additionalContainers: []
-  #  - sideContainerName: dind
-  #    image:
-  #      repository: docker
-  #      tag: dind
-  #    command: dockerd-entrypoint.sh
-  #    args: ""
-  #    privileged: true
-  #    resources:
-  #      requests:
-  #        cpu: 500m
-  #        memory: 1Gi
-  #      limits:
-  #        cpu: 1
-  #        memory: 2Gi
+  additionalContainers: 
+   - sideContainerName: dind
+     image:
+       repository: docker
+       tag: dind
+     command: dockerd-entrypoint.sh
+     args: ""
+     privileged: true
+     resources:
+       requests:
+         cpu: 500m
+         memory: 1Gi
+       limits:
+         cpu: 1
+         memory: 2Gi
 
   # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
   # -- Disable the default Jenkins Agent configuration
@@ -1268,7 +1268,7 @@ persistence:
   # If undefined (the default) or set to null, no storageClassName spec is
   #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS & OpenStack)
   # -- Storage class for the PVC
-  storageClass:
+  storageClass: nfs-client
   # -- Annotations for the PVC
   annotations: {}
   # -- Labels for the PVC
