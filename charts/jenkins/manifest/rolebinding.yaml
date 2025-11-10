@@ -1,0 +1,54 @@
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: RoleBinding
+# metadata:
+#   name: jenkins-default-pod-lister-binding
+#   namespace: jenkins # Ensure this matches your Jenkins namespace
+# subjects:
+#   - kind: ServiceAccount
+#     name: default # The name of the ServiceAccount
+#     namespace: jenkins # The namespace of the ServiceAccount
+# roleRef:
+#   kind: Role
+#   name: jenkins-pod-lister # The name of the Role you created
+#   apiGroup: rbac.authorization.k8s.io
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: jenkins-namespace-lister-binding
+# subjects:
+#   - kind: ServiceAccount
+#     name: default # This refers to the service account named 'default' within the 'jenkins' namespace
+#     namespace: jenkins
+# roleRef:
+#   kind: ClusterRole
+#   name: jenkins-namespace-lister
+#   apiGroup: rbac.authorization.k8s.io
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: jenkins-cluster-replicationcontrollers-reader-binding
+# subjects:
+#   - kind: ServiceAccount
+#     name: default
+#     namespace: jenkins
+# roleRef:
+#   kind: ClusterRole
+#   name: cluster-replicationcontrollers-reader
+#   apiGroup: rbac.authorization.k8s.io
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: RoleBinding
+# metadata:
+#   name: jenkins-default-all-lister-rolebinding
+#   namespace: jenkins # Ensure this matches your Jenkins namespace
+# subjects:
+#   - kind: ServiceAccount
+#     name: default # The name of the ServiceAccount
+#     namespace: jenkins # The namespace of the ServiceAccount
+# roleRef:
+#   kind: Role
+#   name: jenkins-all-lister-role # The name of the Role you created
+#   apiGroup: rbac.authorization.k8s.io
+# ---
