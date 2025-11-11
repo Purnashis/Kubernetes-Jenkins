@@ -32,7 +32,7 @@
 #   name: jenkins-all-lister-role
 #   namespace: jenkins # Ensure this matches your Jenkins namespace
 # rules:
-#   - apiGroups: [""] # "" indicates the core API group
+#   - apiGroups: ["*"] # "" indicates the core API group
 #     resources: [""]
-#     verbs: ["list", "get"] # Add "get" if Jenkins also needs to retrieve individual pod details
+#     verbs: ["*"] # Add "get" if Jenkins also needs to retrieve individual pod details
 # ---
