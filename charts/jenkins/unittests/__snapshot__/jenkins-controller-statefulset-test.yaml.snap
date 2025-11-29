@@ -14,10 +14,10 @@ config values:
       namespace: my-namespace
 configure empty image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.528.1
+    docker.io/jenkins/jenkins:2.528.2
 configure image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.528.1-alpine
+    docker.io/jenkins/jenkins:2.528.2-alpine
 default values:
   1: |
     replicas: 1
@@ -29,7 +29,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: 6ef8781136b2490a48ad51d63b9a945bda5813d481fd4d56c0899b7a62be5c49
+          checksum/config: 93088f429fbf45e0da371a1997d3712f9eaff07c6b2a4e2f142802fa56ea7675
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -55,7 +55,7 @@ default values:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.528.1-jdk21
+            image: docker.io/jenkins/jenkins:2.528.2-jdk21
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -176,7 +176,7 @@ default values:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.528.1-jdk21
+            image: docker.io/jenkins/jenkins:2.528.2-jdk21
             imagePullPolicy: Always
             name: init
             resources:
@@ -236,7 +236,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 6ef8781136b2490a48ad51d63b9a945bda5813d481fd4d56c0899b7a62be5c49
+    checksum/config: 93088f429fbf45e0da371a1997d3712f9eaff07c6b2a4e2f142802fa56ea7675
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -250,7 +250,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: 6ef8781136b2490a48ad51d63b9a945bda5813d481fd4d56c0899b7a62be5c49
+          checksum/config: 93088f429fbf45e0da371a1997d3712f9eaff07c6b2a4e2f142802fa56ea7675
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -276,7 +276,7 @@ test scheme for config-reload:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.528.1-jdk21
+            image: docker.io/jenkins/jenkins:2.528.2-jdk21
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -397,7 +397,7 @@ test scheme for config-reload:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.528.1-jdk21
+            image: docker.io/jenkins/jenkins:2.528.2-jdk21
             imagePullPolicy: Always
             name: init
             resources:

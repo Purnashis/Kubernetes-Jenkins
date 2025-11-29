@@ -14,9 +14,9 @@ jobs:
       matrix:
         kubernetes_version:
           # See https://kubernetes.io/releases/ for EOL dates
-          - "kindest/node:v1.32.3"
-          - "kindest/node:v1.31.6"
-          - "kindest/node:v1.30.10"
+          - "kindest/node:v1.34.2"
+          - "kindest/node:v1.33.6"
+          - "kindest/node:v1.32.10"
       fail-fast: false
 
     steps:
@@ -29,7 +29,7 @@ jobs:
         uses: azure/setup-helm@v4
         with:
           # renovate: datasource=github-tags depName=helm/helm
-          version: v3.19.0
+          version: v3.19.2
 
       - name: Set up Python
         uses: actions/setup-python@v6
