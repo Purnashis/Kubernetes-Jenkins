@@ -285,9 +285,9 @@ controller:
         # -- Set the Pod's HTTP port to use for the liveness probe
         port: http
       # -- Set the time interval between two liveness probes executions in seconds
-      periodSeconds: 10
+      periodSeconds: 120
       # -- Set the timeout for the liveness probe in seconds
-      timeoutSeconds: 5
+      timeoutSeconds: 120
 
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial liveness probe while Jenkins is starting
@@ -296,16 +296,16 @@ controller:
 
     readinessProbe:
       # -- Set the failure threshold for the readiness probe
-      failureThreshold: 3
+      failureThreshold: 4
       httpGet:
         # -- Set the Pod's HTTP path for the liveness probe
         path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
         # -- Set the Pod's HTTP port to use for the readiness probe
         port: http
       # -- Set the time interval between two readiness probes executions in seconds
-      periodSeconds: 10
+      periodSeconds: 120
       # -- Set the timeout for the readiness probe in seconds
-      timeoutSeconds: 5
+      timeoutSeconds: 120
 
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial readiness probe while Jenkins is starting
@@ -426,11 +426,11 @@ controller:
   # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
   # Note that for this to work, `persistence.enabled` needs to be set to `true`
   # -- Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`
-  initializeOnce: false
+  initializeOnce: true
 
   # Enable to always override the installed plugins with the values of 'controller.installPlugins' on upgrade or redeployment.
   # -- Overwrite installed plugins on start
-  overwritePlugins: false
+  overwritePlugins: true
 
   # Configures if plugins bundled with `controller.image` should be overwritten with the values of 'controller.installPlugins' on upgrade or redeployment.
   # -- Overwrite plugins that are already installed in the controller image
